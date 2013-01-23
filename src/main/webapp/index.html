@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body>
+
+<div ng-app="LastFm" ng-controller="ArtistCtrl" class="well well-large" style="width: 90%;">
+    <h3>AngularJS Demo</h3>
+    <form class="form-search">
+        <select ng-model="country" ng-options="country.name for country in countries | orderBy:orderProp"></select>
+        <button type="submit" ng-click="findTopArtists()" class="btn"><i class="icon-search"></i>Search</button>
+    </form>
+
+    <div class="alert" ng-class="alertType" ng-cloak>
+        {{alertMessage}}
+    </div>
+
+    <div class="progress" ng-class="active" ng-cloak>
+        <div class="bar" style="width: 100%;"></div>
+    </div>
+
+    <ng-view></ng-view>
+</div>
+
+</body>
+</html>
