@@ -10,6 +10,7 @@ eclipse
 stacktrace.log
 target
 .idea
+target
 /plugins
 /web-app/plugins
 /web-app/WEB-INF/classes
