@@ -2,29 +2,6 @@ angular.module('LastFm', ['ngResource']).
     factory('LastFmResource',function ($resource) {
         return $resource('http://ws.audioscrobbler.com/2.0/?method=:op&artist=:artist&country=:country&api_key=:key&format=json', {},
             {get: {method: 'GET', params: {key: 'cb9ca0d2e59511e8583870dddde59cb0'}}});
-    }).factory('myHttpInterceptor',function ($q, $window, $rootScope) {
-        return function (promise) {
-            $rootScope.nowloading = true; // use ng-show="nowloading" on element containing spinner
-            $rootScope.active = "progress-striped active progress-warning";
-            return promise.then(function (response) {
-                // do something on success
-                $rootScope.nowloading = false; // need to turn it off on success
-                $rootScope.active = "progress-success";
-                return response;
-
-            }, function (response) {
-                // do something on error
-                $rootScope.nowloading = false;  // need to turn it off on failure
-                $rootScope.active = "progress-success";
-                $rootScope.network_error = true;   // you might want to show an error icon.
-                $rootScope.alertType = "alert-info";
-                $rootScope.alertMessage = "Error";
-                return $q.reject(response);
-            });
-        };
-    }).config(function ($httpProvider) {
-        $httpProvider.responseInterceptors.push('myHttpInterceptor');
-
     }).config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
             when('/', {templateUrl: '/partials/artists.html', controller: ArtistController}).
@@ -86,7 +63,7 @@ function ArtistController($scope, $location, LastFmResource) {
 
     $scope.findTopArtists = function () {
         $location.path("/"); //sets up artists template in case it is called with another template in focus
-        $scope.artistsResult = LastFmResource.get({op: 'geo.gettopartists',country: $scope.country.name});
+        $scope.artistsResult = LastFmResource.get({op: 'geo.gettopartists', country: $scope.country.name});
 
     }
 }
