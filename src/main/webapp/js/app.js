@@ -1,9 +1,6 @@
 angular.module('LastFm', ['ngResource']).
-    factory('ArtistResource',function ($resource) {
-        return $resource('http://ws.audioscrobbler.com/2.0/?method=artist.:op&artist=:artist&api_key=:key&format=json', {},
-            {get: {method: 'GET', params: {key: 'cb9ca0d2e59511e8583870dddde59cb0'}}});
-    }).factory('CountryResource',function ($resource) {
-        return $resource('http://ws.audioscrobbler.com/2.0/?method=geo.gettopartists&country=:country&api_key=:key&format=json', {},
+    factory('LastFmResource',function ($resource) {
+        return $resource('http://ws.audioscrobbler.com/2.0/?method=:op&artist=:artist&country=:country&api_key=:key&format=json', {},
             {get: {method: 'GET', params: {key: 'cb9ca0d2e59511e8583870dddde59cb0'}}});
     }).factory('myHttpInterceptor',function ($q, $window, $rootScope) {
         return function (promise) {
@@ -30,38 +27,38 @@ angular.module('LastFm', ['ngResource']).
 
     }).config(['$routeProvider', function ($routeProvider) {
         $routeProvider.
-            when('/', {templateUrl: '/partials/artists.html', controller: ArtistCtrl}).
-            when("/topAlbums/:artist", {templateUrl: '/partials/albums.html', controller: AlbumCtrl}).
-            when("/topFans/:artist", {templateUrl: '/partials/fans.html', controller: FanCtrl}).
-            when("/topTracks/:artist", {templateUrl: '/partials/tracks.html', controller: TrackCtrl}).
+            when('/', {templateUrl: '/partials/artists.html', controller: ArtistController}).
+            when("/topAlbums/:artist", {templateUrl: '/partials/albums.html', controller: AlbumController}).
+            when("/topFans/:artist", {templateUrl: '/partials/fans.html', controller: FanController}).
+            when("/topTracks/:artist", {templateUrl: '/partials/tracks.html', controller: TrackController}).
             otherwise({redirectTo: '/'});
     }]);
 
 
-function AlbumCtrl($scope, $routeParams, ArtistResource) {
+function AlbumController($scope, $routeParams, LastFmResource) {
 
     $scope.artist = $routeParams.artist;
 
-    $scope.albumsResult = ArtistResource.get({op: 'gettopalbums', artist: $scope.artist});
+    $scope.albumsResult = LastFmResource.get({op: 'artist.gettopalbums', artist: $scope.artist});
 }
 
-function FanCtrl($scope, $routeParams, ArtistResource) {
+function FanController($scope, $routeParams, LastFmResource) {
 
     $scope.artist = $routeParams.artist;
 
 
-    $scope.fansResult = ArtistResource.get({op: 'gettopfans', artist: $scope.artist});
+    $scope.fansResult = LastFmResource.get({op: 'artist.gettopfans', artist: $scope.artist});
 }
 
-function TrackCtrl($scope, $routeParams, ArtistResource) {
+function TrackController($scope, $routeParams, LastFmResource) {
 
     $scope.artist = $routeParams.artist;
 
-    $scope.tracksResult = ArtistResource.get({op: 'gettoptracks', artist: $scope.artist});
+    $scope.tracksResult = LastFmResource.get({op: 'artist.gettoptracks', artist: $scope.artist});
 }
 
 
-function ArtistCtrl($scope, $location, CountryResource) {
+function ArtistController($scope, $location, LastFmResource) {
 
     $scope.countries = [
         {name: "Germany"},
@@ -85,13 +82,11 @@ function ArtistCtrl($scope, $location, CountryResource) {
         {name: "Iceland"}
     ];
 
-    $scope.orderProp = 'name';
-
     $scope.country = $scope.countries[9];
 
     $scope.findTopArtists = function () {
         $location.path("/"); //sets up artists template in case it is called with another template in focus
-        $scope.artistsResult = CountryResource.get({country: $scope.country.name});
+        $scope.artistsResult = LastFmResource.get({op: 'geo.gettopartists',country: $scope.country.name});
 
     }
 }

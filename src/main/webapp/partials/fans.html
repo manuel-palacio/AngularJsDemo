@@ -1,4 +1,4 @@
-<h3>Top fans for {{artist}}</h3>
+<h4>Top fans for {{artist}}</h4>
 <table class="table table-striped table-condensed">
 
     <thead>
@@ -8,7 +8,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="fan in fansResult.topfans.user">
+    <tr ng-repeat="fan in fansResult.topfans.user | orderBy:'name'">
         <td><a href="{{fan.url}}">{{fan.name}}</a></td>
         <td>{{fan.realname}}</td>
     </tr>

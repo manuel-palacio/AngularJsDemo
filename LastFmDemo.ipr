@@ -94,7 +94,7 @@
         <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
           <option name="myValues">
             <value>
-              <list size="7">
+              <list size="8">
                 <item index="0" class="java.lang.String" itemvalue="ng-options" />
                 <item index="1" class="java.lang.String" itemvalue="ng-click" />
                 <item index="2" class="java.lang.String" itemvalue="ng-model" />
@@ -102,6 +102,7 @@
                 <item index="4" class="java.lang.String" itemvalue="ng-controller" />
                 <item index="5" class="java.lang.String" itemvalue="ng-repeat" />
                 <item index="6" class="java.lang.String" itemvalue="ng-view" />
+                <item index="7" class="java.lang.String" itemvalue="ng-class" />
               </list>
             </value>
           </option>
