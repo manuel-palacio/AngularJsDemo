@@ -85,7 +85,7 @@
                             <extraJvmArguments>-Xmx512m</extraJvmArguments>
                             <programs>
                                 <program>
-                                    <mainClass>Main</mainClass>
+                                    <mainClass>net.palacesoft.angulardemo.Main</mainClass>
                                     <name>webapp</name>
                                 </program>
                             </programs>
