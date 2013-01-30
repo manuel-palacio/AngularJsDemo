@@ -8,7 +8,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="album in albumsResult.topalbums.album | orderBy:'name'">
+    <tr ng-repeat="album in albumsResult.topalbums.album | orderBy:'playcount'">
         <td><a href="{{album.url}}">{{album.name}}</a></td>
         <td>{{album.playcount}}</td>
     </tr>

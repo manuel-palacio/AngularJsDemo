@@ -9,7 +9,30 @@ angular.module('LastFm', ['ngResource']).
             when("/topFans/:artist", {templateUrl: '/partials/fans.html', controller: FanController}).
             when("/topTracks/:artist", {templateUrl: '/partials/tracks.html', controller: TrackController}).
             otherwise({redirectTo: '/'});
-    }]);
+    }]).factory('myHttpInterceptor',function ($q, $window, $rootScope) {
+        return function (promise) {
+            $rootScope.nowloading = true; // use ng-show="nowloading" on element containing spinner
+            $rootScope.active = "progress-striped active progress-warning";
+            return promise.then(function (response) {
+                // do something on success
+                $rootScope.nowloading = false; // need to turn it off on success
+                $rootScope.active = "progress-success";
+                return response;
+
+            }, function (response) {
+                // do something on error
+                $rootScope.nowloading = false;  // need to turn it off on failure
+                $rootScope.active = "progress-success";
+                $rootScope.network_error = true;   // you might want to show an error icon.
+                $rootScope.alertType = "alert-info";
+                $rootScope.alertMessage = "Error";
+                return $q.reject(response);
+            });
+        };
+    }).config(function ($httpProvider) {
+        $httpProvider.responseInterceptors.push('myHttpInterceptor');
+
+    });
 
 
 function AlbumController($scope, $routeParams, LastFmResource) {

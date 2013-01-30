@@ -10,7 +10,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="artist in artistsResult.topartists.artist | orderBy:'name'">
+    <tr ng-repeat="artist in artistsResult.topartists.artist | orderBy:listeners">
         <td><a href="{{artist.url}}">{{artist.name}}</a></td>
         <td>{{artist.listeners}}</td>
         <td><a href="#/topAlbums/{{artist.name}}">Top albums</a></td>
