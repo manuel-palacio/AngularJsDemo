@@ -11,10 +11,16 @@
 
 <div ng-app="LastFm" ng-controller="ArtistController" class="well well-large" style="width: 90%;">
     <legend>AngularJS Demo</legend>
-    <form class="form-search">
-        <select ng-model="country" ng-options="country.name for country in countries | orderBy:orderProp"></select>
-        <button type="submit" ng-click="findTopArtists()" class="btn btn-primary"><i class="icon-search"></i>Search</button>
-    </form>
+    <div class="row">
+        <div class="span4">
+            <form class="form-search">
+                  <select ng-model="country" ng-options="country.name for country in countries | orderBy:orderProp"></select>
+                  <button type="submit" ng-click="findTopArtists()" class="btn btn-primary"><i class="icon-search"></i>Search</button>
+              </form>
+        </div>
+        <div class="span4">See the <a href="https://github.com/manuel-palacio/AngularJsDemo/tree/master/src/main/webapp">code</a></div>
+    </div>
+
 
     <div class="alert" ng-class="alertType" ng-cloak>
         {{alertMessage}}
